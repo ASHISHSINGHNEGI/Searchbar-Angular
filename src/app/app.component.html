@@ -1,0 +1,100 @@
+<style></style>
+
+<main class="main">
+  <div class="step-info">
+    <p>Step {{ currentStep }} of {{ totalSteps }}: Select User</p>
+  </div>
+  <div>
+    <input
+      type="text"
+      [(ngModel)]="searchText"
+      (input)="checkMatch()"
+      class="input-box borderColor"
+      placeholder="Enter username"
+    />
+  </div>
+  <div>
+    <button
+      class="cancel-button"
+      (click)="searchText = ''"
+      (input)="checkMatch()"
+    >
+      Cancel
+    </button>
+    <button
+      class="next-button"
+      [ngClass]="{
+        'next-button-on': isMatched,
+        'next-button-off': !isMatched
+      }"
+      [disabled]="!isMatched"
+    >
+      Next
+    </button>
+  </div>
+  <div class="options" [style.display]="isMatched ? 'block' : 'none'">
+    <div class="heading">
+      <h3>Please select type of complain you want to file</h3>
+      <input
+        type="radio"
+        id="one"
+        [(ngModel)]="selectedOption"
+        name="complain"
+        value="Product or Service quality"
+      />
+      <label for="one">Product or Service quality</label>
+      <input
+        type="radio"
+        id="two"
+        name="complain"
+        value="Unavailable or out of stock product"
+        [(ngModel)]="selectedOption"
+      />
+      <label for="two">Unavailable or out of stock product</label>
+      <input
+        type="radio"
+        id="three"
+        name="complain"
+        value="Delivery related issues"
+        [(ngModel)]="selectedOption"
+      />
+      <label for="three">Delivery related issues</label>
+      <input
+        type="radio"
+        id="four"
+        name="complain"
+        value="long wait time"
+        [(ngModel)]="selectedOption"
+      />
+      <label for="four">long wait time</label>
+      <input
+        type="radio"
+        id="five"
+        name="complain"
+        value="other"
+        [(ngModel)]="selectedOption"
+      />
+      <label for="five">other</label>
+    </div>
+  </div>
+  <div class="table" [style.display]="isMatched ? 'block' : 'none'">
+    <table class="complaint-table">
+      <thead>
+        <tr>
+          <th class="table-header">Category</th>
+          <th class="table-header">Status</th>
+          <th class="table-header">Date Given or Received</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-cell">{{ selectedOption }}</td>
+          <td class="table-cell">Pending</td>
+          <td class="table-cell">{{ today | date }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<!-- [disabled]="!inputValue" -->
